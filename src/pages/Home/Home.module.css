@@ -11,6 +11,12 @@
   padding: 1rem;
 }
 
+.home__mainScreen > h1, p {
+  margin-top: 0;
+  color: #fff;
+  text-align: center;
+}
+
 .home__resultScreen {
   flex: 1;
   align-self: center;
