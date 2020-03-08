@@ -91,3 +91,9 @@ label > h3 {
 .form__button:active {
   background-color: #0d3f72;
 }
+
+.separator {
+  text-align: center;
+  color: #fff;
+  margin: 1rem 0;
+}

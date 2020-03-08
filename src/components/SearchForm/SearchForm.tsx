@@ -76,7 +76,13 @@ const SearchForm: React.FC<FormProps> = (props: FormProps) => {
         </select>
       </label>
 
-      <input className={styles.form__button} type="button" value="Search" />
+      <div className={styles.separator}>
+        <span>. . . </span>
+      </div>
+
+      <button type="button" className={styles.form__button}>
+        :: Search ::
+      </button>
     </form>
   );
 };
