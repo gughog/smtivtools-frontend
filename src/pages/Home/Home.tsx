@@ -43,7 +43,7 @@ const Home: React.FC = () => {
       </section>
 
       <section className={styles.home__resultScreen}>
-        <ListData />
+        <ListData results={data.searchData} />
       </section>
     </main>
   );

@@ -1,0 +1,16 @@
+.listData__icon {
+  text-align: center;
+  margin-top: 25vh;
+  opacity: 0.2;
+}
+
+/* Table: */
+
+.listData__table {
+  border-collapse: collapse;
+  width: 50%;
+}
+
+.listData__table_container {
+  overflow-x: auto;
+}
