@@ -6,18 +6,11 @@
 
 /* Table: */
 .listData__table {
-  display: block;
-  overflow-x: auto;
   white-space: nowrap;
 }
 
-.listData__table_container table {
-  width: 50vw;
-  max-height: 95vh;
-}
-
 .listData__table th, td {
-  padding: 8px;
+  padding: 0.8rem;
   text-align: left;
   border-bottom: 1px solid #ddd;
 }
