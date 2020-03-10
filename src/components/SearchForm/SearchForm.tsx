@@ -51,6 +51,20 @@ const SearchForm: React.FC<FormProps> = (props: FormProps) => {
         </select>
       </label>
 
+      <label htmlFor="selectFilter">
+        <h3> Limiter by: </h3>
+        <select value={selectFilter} onChange={handleChange} name="selectFilter" className={styles.form__typeLabel} id="selectFilter">
+          {
+            selectType === ''
+              ? ''
+              : filters[selectType]
+                .map((filter: string) => (
+                  <option key={filter} value={filter}>{Utils.upperFirstLetter(filter)}</option>
+                ))
+          }
+        </select>
+      </label>
+
       <label htmlFor="searchInput">
         <h3> Type your search: </h3>
         <input
@@ -62,20 +76,6 @@ const SearchForm: React.FC<FormProps> = (props: FormProps) => {
           onChange={handleChange}
           placeholder={handlePlaceholder(selectType)}
         />
-      </label>
-
-      <label htmlFor="selectFilter">
-        <h3> Search by: </h3>
-        <select value={selectFilter} onChange={handleChange} name="selectFilter" className={styles.form__typeLabel} id="selectFilter">
-          {
-            selectType === ''
-              ? ''
-              : filters[selectType]
-                .map((filter: string) => (
-                  <option key={filter} value={filter}>{Utils.upperFirstLetter(filter)}</option>
-                ))
-          }
-        </select>
       </label>
 
       <div className={styles.separator}>
