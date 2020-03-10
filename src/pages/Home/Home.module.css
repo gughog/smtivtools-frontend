@@ -8,7 +8,7 @@
   flex: 1;
   height: 100vh;
   box-sizing: border-box;
-  padding: 1rem;
+  padding: 1rem 3rem;
 }
 
 .home__mainScreen > h1, p {

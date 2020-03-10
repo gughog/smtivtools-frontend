@@ -7,6 +7,7 @@ interface FormProps {
   selectFilter: string;
   searchInput: string;
   handleChange?: (e: any) => void;
+  fetchMethod: () => void;
 }
 
 const filters: any = {
@@ -35,6 +36,7 @@ const SearchForm: React.FC<FormProps> = (props: FormProps) => {
     selectFilter,
     searchInput,
     handleChange,
+    fetchMethod,
   } = props;
 
   return (
@@ -80,7 +82,7 @@ const SearchForm: React.FC<FormProps> = (props: FormProps) => {
         <span>. . . </span>
       </div>
 
-      <button type="button" className={styles.form__button}>
+      <button type="button" onClick={fetchMethod} className={styles.form__button}>
         :: Search ::
       </button>
     </form>

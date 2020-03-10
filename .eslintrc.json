@@ -27,6 +27,7 @@
     "plugin:@typescript-eslint/recommended"
   ],
   "rules": {
+    
     "import/no-unresolved": "off",
     "import/extensions": "off",
     "no-implicit-coercion": 1,
