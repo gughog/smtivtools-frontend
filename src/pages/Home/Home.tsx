@@ -12,6 +12,12 @@ const Home: React.FC = () => {
     searchData: object[];
   }
 
+  interface PropsData {
+    selectType: string;
+    searchInput: string;
+    selectFilter: string;
+  }
+
   // Hooks:
   const [data, setData] = useState<HomeData>({
     selectType: 'demons',
@@ -28,17 +34,22 @@ const Home: React.FC = () => {
     console.log(value);
   };
 
-  const getData = async () => {
+  const getData = async (propsData: PropsData): Promise<void> => {
+    const { selectType, searchInput, selectFilter } = propsData;
     const api = axios.create({ baseURL: 'https://smtiv-tools-rest-api.herokuapp.com/api/v1' });
 
-    api.get('/apps')
+    const endpoint = `/${selectType}${selectFilter ? `?${selectFilter}=${searchInput}` : ''}`;
+
+    console.log(selectType, searchInput, selectFilter);
+
+    api.get(endpoint)
       .then((response) => {
         setData({ ...data, searchData: response.data.data });
         console.log(data);
       })
       .catch((error) => console.log(error));
 
-    console.log(data);
+    // console.log(data);
   };
 
   // JSX:
@@ -53,7 +64,7 @@ const Home: React.FC = () => {
           selectFilter={data.selectFilter}
           searchInput={data.searchInput}
           handleChange={onChangeHandler}
-          fetchMethod={getData}
+          fetchMethod={() => getData(data)}
         />
       </section>
 

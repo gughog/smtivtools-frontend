@@ -7,11 +7,11 @@ interface FormProps {
   selectFilter: string;
   searchInput: string;
   handleChange?: (e: any) => void;
-  fetchMethod: () => void;
+  fetchMethod?: () => void;
 }
 
 const filters: any = {
-  demons: ['name', 'level', 'race'],
+  demons: ['name', 'lvl', 'race'],
   skills: ['name', 'MP', 'type', 'description'],
   apps: ['name', 'points', 'requirements', 'description'],
   speciafusions: [],
@@ -54,6 +54,7 @@ const SearchForm: React.FC<FormProps> = (props: FormProps) => {
       <label htmlFor="selectFilter">
         <h3> Limiter by: </h3>
         <select value={selectFilter} onChange={handleChange} name="selectFilter" className={styles.form__typeLabel} id="selectFilter">
+          <option disabled value=""> Choose one </option>
           {
             selectType === ''
               ? ''

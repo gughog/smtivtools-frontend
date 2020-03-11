@@ -2,9 +2,16 @@
 import React from 'react';
 import styles from './ListData.module.css';
 import icon from '../../assets/devil.png';
+import { Utils } from '../../utils/utils';
 
 interface DataProps {
   results: object[];
+}
+
+interface PropsData {
+  selectType: string;
+  searchInput: string;
+  selectFilter: string;
 }
 
 const ListData: React.FC<DataProps> = (props: DataProps) => {
@@ -43,7 +50,7 @@ const ListData: React.FC<DataProps> = (props: DataProps) => {
               <tr key={row.id}>
                 {
                   Object.values(row).map((tabledata: any) => (
-                    <td key={Math.random()}>
+                    <td className={Utils.classColorHandler(tabledata)} key={Math.random()}>
                       { tabledata }
                     </td>
                   ))
