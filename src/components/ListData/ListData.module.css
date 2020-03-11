@@ -4,6 +4,11 @@
   opacity: 0.2;
 }
 
+.listData__loader {
+  text-align: center;
+  margin-top: 25vh;
+}
+
 /* Table: */
 .listData__table {
   white-space: nowrap;

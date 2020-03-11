@@ -10,6 +10,7 @@ const Home: React.FC = () => {
     searchInput: string;
     selectFilter: string;
     searchData: object[];
+    loading: boolean;
   }
 
   interface PropsData {
@@ -24,6 +25,7 @@ const Home: React.FC = () => {
     searchInput: '',
     selectFilter: '',
     searchData: [],
+    loading: false,
   });
 
   const onChangeHandler = (e: any): void => {
@@ -34,22 +36,22 @@ const Home: React.FC = () => {
     console.log(value);
   };
 
-  const getData = async (propsData: PropsData): Promise<void> => {
-    const { selectType, searchInput, selectFilter } = propsData;
+  const getData = async (): Promise<void> => {
+    const { selectType, searchInput, selectFilter } = data;
     const api = axios.create({ baseURL: 'https://smtiv-tools-rest-api.herokuapp.com/api/v1' });
 
     const endpoint = `/${selectType}${selectFilter ? `?${selectFilter}=${searchInput}` : ''}`;
 
-    console.log(selectType, searchInput, selectFilter);
+    // set loading on:
+    setData({ ...data, loading: true });
 
     api.get(endpoint)
       .then((response) => {
-        setData({ ...data, searchData: response.data.data });
+        // Append data and set loading off:
+        setData({ ...data, searchData: response.data.data, loading: false });
         console.log(data);
       })
       .catch((error) => console.log(error));
-
-    // console.log(data);
   };
 
   // JSX:
@@ -64,12 +66,12 @@ const Home: React.FC = () => {
           selectFilter={data.selectFilter}
           searchInput={data.searchInput}
           handleChange={onChangeHandler}
-          fetchMethod={() => getData(data)}
+          fetchMethod={getData}
         />
       </section>
 
       <section className={styles.home__resultScreen}>
-        <ListData results={data.searchData} />
+        <ListData loading={data.loading} results={data.searchData} />
       </section>
     </main>
   );

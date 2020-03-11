@@ -9,6 +9,7 @@ import { DefaultLoading } from '../index';
 
 interface DataProps {
   results: object[];
+  loading: boolean;
 }
 
 interface PropsData {
@@ -18,15 +19,24 @@ interface PropsData {
 }
 
 const ListData: React.FC<DataProps> = (props: DataProps) => {
-  const { results } = props;
+  const { results, loading } = props;
 
   // JSX fragment for "no data"
-  const noDataMessage = (): JSX.Element => (
-    <div className={styles.listData__icon}>
-      <h2>No data</h2>
-      <img width="200" height="200" src={icon} alt="Devil icon" />
-    </div>
-  );
+  const noDataMessage = (): JSX.Element => {
+    if (loading) {
+      return (
+        <div className={styles.listData__loader}>
+          <DefaultLoading />
+        </div>
+      );
+    }
+    return (
+      <div className={styles.listData__icon}>
+        <h2>No data</h2>
+        <img width="200" height="200" src={icon} alt="Devil icon" />
+      </div>
+    );
+  };
 
   // JSX fragment for list rendering
   const tableRender = (): JSX.Element => {
