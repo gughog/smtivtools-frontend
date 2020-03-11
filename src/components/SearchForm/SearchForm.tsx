@@ -40,7 +40,7 @@ const SearchForm: React.FC<FormProps> = (props: FormProps) => {
   } = props;
 
   return (
-    <form>
+    <form onSubmit={(e: React.FormEvent<HTMLFormElement>): void => { e.preventDefault(); }}>
       <label htmlFor="selectType">
         <h3> Choose a type search: </h3>
         <select value={selectType} onChange={handleChange} name="selectType" className={styles.form__typeLabel} id="selectType">
