@@ -3,6 +3,9 @@ import React from 'react';
 import styles from './ListData.module.css';
 import icon from '../../assets/devil.png';
 import { Utils } from '../../utils/utils';
+import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
+import { DefaultLoading } from '../index';
+// <DefaultLoading />
 
 interface DataProps {
   results: object[];
