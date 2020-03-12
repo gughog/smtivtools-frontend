@@ -1,11 +1,10 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
-import styles from './ListData.module.css';
+import { LoaderContainer, IconContainer, Table } from './styled.components';
 import icon from '../../assets/devil.png';
 import { Utils } from '../../utils/utils';
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 import { DefaultLoading } from '../index';
-// <DefaultLoading />
 
 interface DataProps {
   results: object[];
@@ -25,16 +24,16 @@ const ListData: React.FC<DataProps> = (props: DataProps) => {
   const noDataMessage = (): JSX.Element => {
     if (loading) {
       return (
-        <div className={styles.listData__loader}>
+        <LoaderContainer>
           <DefaultLoading />
-        </div>
+        </LoaderContainer>
       );
     }
     return (
-      <div className={styles.listData__icon}>
+      <IconContainer>
         <h2>No data</h2>
         <img width="200" height="200" src={icon} alt="Devil icon" />
-      </div>
+      </IconContainer>
     );
   };
 
@@ -78,10 +77,10 @@ const ListData: React.FC<DataProps> = (props: DataProps) => {
   };
 
   const tableData = (): JSX.Element => (
-    <div className={styles.listData__table_container}>
-      <table className={styles.listData__table}>
+    <div>
+      <Table>
         { tableRender() }
-      </table>
+      </Table>
     </div>
   );
 

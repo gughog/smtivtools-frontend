@@ -1,6 +1,13 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
-import styles from './SearchForm.module.css';
 import { Utils } from '../../utils/utils';
+import {
+  SubmitButton,
+  Separator,
+  LabelText,
+  TextInput,
+  Select,
+} from '../shared';
 
 interface FormProps {
   selectType: string;
@@ -42,18 +49,18 @@ const SearchForm: React.FC<FormProps> = (props: FormProps) => {
   return (
     <form onSubmit={(e: React.FormEvent<HTMLFormElement>): void => { e.preventDefault(); }}>
       <label htmlFor="selectType">
-        <h3> Choose a type search: </h3>
-        <select value={selectType} onChange={handleChange} name="selectType" className={styles.form__typeLabel} id="selectType">
+        <LabelText> Choose a type search: </LabelText>
+        <Select value={selectType} onChange={handleChange} name="selectType" id="selectType">
           <option value="demons">Demons</option>
           <option value="skills">Skills</option>
           <option value="apps">Apps</option>
           <option disabled value="speciafusions">Special Fusions</option>
-        </select>
+        </Select>
       </label>
 
       <label htmlFor="selectFilter">
-        <h3> Limiter by: </h3>
-        <select value={selectFilter} onChange={handleChange} name="selectFilter" className={styles.form__typeLabel} id="selectFilter">
+        <LabelText> Limiter by: </LabelText>
+        <Select value={selectFilter} onChange={handleChange} name="selectFilter" id="selectFilter">
           <option disabled value=""> Choose one </option>
           {
             selectType === ''
@@ -63,13 +70,12 @@ const SearchForm: React.FC<FormProps> = (props: FormProps) => {
                   <option key={filter} value={filter}>{Utils.upperFirstLetter(filter)}</option>
                 ))
           }
-        </select>
+        </Select>
       </label>
 
       <label htmlFor="searchInput">
-        <h3> Type your search: </h3>
-        <input
-          className={styles.form__searchInput}
+        <LabelText> Type your search: </LabelText>
+        <TextInput
           name="searchInput"
           id="searchInput"
           type="text"
@@ -79,13 +85,13 @@ const SearchForm: React.FC<FormProps> = (props: FormProps) => {
         />
       </label>
 
-      <div className={styles.separator}>
+      <Separator>
         <span>. . . </span>
-      </div>
+      </Separator>
 
-      <button type="button" onClick={fetchMethod} className={styles.form__button}>
+      <SubmitButton type="button" onClick={fetchMethod}>
         :: Search ::
-      </button>
+      </SubmitButton>
     </form>
   );
 };

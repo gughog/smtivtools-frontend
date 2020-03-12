@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { SearchForm, ListData } from '../../components';
-import styles from './Home.module.css';
+import { MainContainer, MainSectionForm, MainSectionResults } from './styled.components';
 
 const Home: React.FC = () => {
   // Interfaces
@@ -56,8 +56,8 @@ const Home: React.FC = () => {
 
   // JSX:
   return (
-    <main className={styles.home_container}>
-      <section className={styles.home__mainScreen}>
+    <MainContainer>
+      <MainSectionForm>
         <h1> SMTIV Tools App </h1>
         <p>Welcome to the SMTIV Tools App, where hunters gather!</p>
         <hr />
@@ -68,12 +68,12 @@ const Home: React.FC = () => {
           handleChange={onChangeHandler}
           fetchMethod={getData}
         />
-      </section>
+      </MainSectionForm>
 
-      <section className={styles.home__resultScreen}>
+      <MainSectionResults>
         <ListData loading={data.loading} results={data.searchData} />
-      </section>
-    </main>
+      </MainSectionResults>
+    </MainContainer>
   );
 };
 
