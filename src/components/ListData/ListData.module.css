@@ -1,26 +1,4 @@
-.listData__icon {
-  text-align: center;
-  margin-top: 25vh;
-  opacity: 0.2;
-}
-
-.listData__loader {
-  text-align: center;
-  margin-top: 25vh;
-}
-
-/* Table: */
-.listData__table {
-  white-space: nowrap;
-}
-
-.listData__table th, td {
-  padding: 0.8rem;
-  text-align: left;
-  border-bottom: 1px solid #ddd;
-}
-.listData__table tr:hover {background-color: #f5f5f5;}
-
+/* Affinities */
 .weak { color: #B71C1C; font-weight: bold; }
 .null { color: #626262; font-weight: bold; }
 .repel { color: #1A237E; font-weight: bold; }

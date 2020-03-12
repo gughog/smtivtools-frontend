@@ -11,7 +11,7 @@ export const Utils = Object.freeze({
   },
   classColorHandler: (tableDataName: string): string => {
     // Weak, Null, Repel, Drain, Resist, N/A
-    if (tableDataName === 'Weak' || tableDataName === 'Weak') { return styles.weak; }
+    if (tableDataName === 'Weak') { return styles.weak; }
     if (tableDataName === 'Null') { return styles.null; }
     if (tableDataName === 'Repel') { return styles.repel; }
     if (tableDataName === 'Drain') { return styles.drain; }
