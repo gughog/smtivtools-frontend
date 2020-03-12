@@ -7,11 +7,11 @@ interface FormProps {
   selectFilter: string;
   searchInput: string;
   handleChange?: (e: any) => void;
-  fetchMethod: () => void;
+  fetchMethod?: () => void;
 }
 
 const filters: any = {
-  demons: ['name', 'level', 'race'],
+  demons: ['name', 'lvl', 'race'],
   skills: ['name', 'MP', 'type', 'description'],
   apps: ['name', 'points', 'requirements', 'description'],
   speciafusions: [],
@@ -40,7 +40,7 @@ const SearchForm: React.FC<FormProps> = (props: FormProps) => {
   } = props;
 
   return (
-    <form>
+    <form onSubmit={(e: React.FormEvent<HTMLFormElement>): void => { e.preventDefault(); }}>
       <label htmlFor="selectType">
         <h3> Choose a type search: </h3>
         <select value={selectType} onChange={handleChange} name="selectType" className={styles.form__typeLabel} id="selectType">
@@ -48,6 +48,21 @@ const SearchForm: React.FC<FormProps> = (props: FormProps) => {
           <option value="skills">Skills</option>
           <option value="apps">Apps</option>
           <option disabled value="speciafusions">Special Fusions</option>
+        </select>
+      </label>
+
+      <label htmlFor="selectFilter">
+        <h3> Limiter by: </h3>
+        <select value={selectFilter} onChange={handleChange} name="selectFilter" className={styles.form__typeLabel} id="selectFilter">
+          <option disabled value=""> Choose one </option>
+          {
+            selectType === ''
+              ? ''
+              : filters[selectType]
+                .map((filter: string) => (
+                  <option key={filter} value={filter}>{Utils.upperFirstLetter(filter)}</option>
+                ))
+          }
         </select>
       </label>
 
@@ -62,20 +77,6 @@ const SearchForm: React.FC<FormProps> = (props: FormProps) => {
           onChange={handleChange}
           placeholder={handlePlaceholder(selectType)}
         />
-      </label>
-
-      <label htmlFor="selectFilter">
-        <h3> Search by: </h3>
-        <select value={selectFilter} onChange={handleChange} name="selectFilter" className={styles.form__typeLabel} id="selectFilter">
-          {
-            selectType === ''
-              ? ''
-              : filters[selectType]
-                .map((filter: string) => (
-                  <option key={filter} value={filter}>{Utils.upperFirstLetter(filter)}</option>
-                ))
-          }
-        </select>
       </label>
 
       <div className={styles.separator}>

@@ -2,21 +2,41 @@
 import React from 'react';
 import styles from './ListData.module.css';
 import icon from '../../assets/devil.png';
+import { Utils } from '../../utils/utils';
+import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
+import { DefaultLoading } from '../index';
+// <DefaultLoading />
 
 interface DataProps {
   results: object[];
+  loading: boolean;
+}
+
+interface PropsData {
+  selectType: string;
+  searchInput: string;
+  selectFilter: string;
 }
 
 const ListData: React.FC<DataProps> = (props: DataProps) => {
-  const { results } = props;
+  const { results, loading } = props;
 
   // JSX fragment for "no data"
-  const noDataMessage = (): JSX.Element => (
-    <div className={styles.listData__icon}>
-      <h2>No data</h2>
-      <img width="200" height="200" src={icon} alt="Devil icon" />
-    </div>
-  );
+  const noDataMessage = (): JSX.Element => {
+    if (loading) {
+      return (
+        <div className={styles.listData__loader}>
+          <DefaultLoading />
+        </div>
+      );
+    }
+    return (
+      <div className={styles.listData__icon}>
+        <h2>No data</h2>
+        <img width="200" height="200" src={icon} alt="Devil icon" />
+      </div>
+    );
+  };
 
   // JSX fragment for list rendering
   const tableRender = (): JSX.Element => {
@@ -43,7 +63,7 @@ const ListData: React.FC<DataProps> = (props: DataProps) => {
               <tr key={row.id}>
                 {
                   Object.values(row).map((tabledata: any) => (
-                    <td key={Math.random()}>
+                    <td className={Utils.classColorHandler(tabledata)} key={Math.random()}>
                       { tabledata }
                     </td>
                   ))
