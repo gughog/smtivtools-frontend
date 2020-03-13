@@ -40,18 +40,23 @@ const ListData: React.FC<DataProps> = (props: DataProps) => {
 
   // JSX fragment for list rendering
   const tableRender = (): JSX.Element => {
-    const queryKeys = Object.keys(results[0]);
+    // Mapping results without field 'ID'. This is necessary to make
+    // Tables always automatic generated, instead of return a different
+    // Table format to different types of query from API.
+    const queryData = results.map(({ id, ...data }: Record<string, any>) => data);
+
     return (
       // Maps the table headers
       <>
         <thead>
           <tr>
             {
-              queryKeys.map((key) => (
-                <th key={key}>
-                  { key }
-                </th>
-              ))
+              Object.keys(queryData[0])
+                .map((key: string) => (
+                  <th key={key}>
+                    { key }
+                  </th>
+                ))
             }
           </tr>
         </thead>
@@ -59,7 +64,7 @@ const ListData: React.FC<DataProps> = (props: DataProps) => {
         {/* // Maps the table rows */}
         <tbody>
           {
-            results.map((row: any) => (
+            queryData.map((row: any) => (
               <tr key={row.id}>
                 {
                   Object.values(row).map((tabledata: any) => (
