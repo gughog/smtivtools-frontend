@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { SearchForm, ListData } from '../../components';
+import { SearchForm, MemoListData } from '../../components';
 import { MainContainer, MainSectionForm, MainSectionResults } from './styled.components';
 
 const Home: React.FC = () => {
@@ -71,7 +71,7 @@ const Home: React.FC = () => {
       </MainSectionForm>
 
       <MainSectionResults>
-        <ListData loading={data.loading} results={data.searchData} />
+        <MemoListData loading={data.loading} results={data.searchData} />
       </MainSectionResults>
     </MainContainer>
   );

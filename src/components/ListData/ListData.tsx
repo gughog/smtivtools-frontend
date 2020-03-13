@@ -100,4 +100,12 @@ const ListData: React.FC<DataProps> = (props: DataProps) => {
   );
 };
 
-export default ListData;
+const MemoListData = React.memo(ListData, (prevProps, nextProps): boolean => {
+  if (prevProps.results === nextProps.results) {
+    return true;
+  }
+
+  return false;
+});
+
+export default MemoListData;
