@@ -19,7 +19,7 @@ interface FormProps {
 
 const filters: any = {
   demons: ['name', 'lvl', 'race'],
-  skills: ['name', 'MP', 'type', 'description'],
+  skills: ['name', 'MP', 'type', 'effect'],
   apps: ['name', 'points', 'requirements', 'description'],
   speciafusions: [],
 };

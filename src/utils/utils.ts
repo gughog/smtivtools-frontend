@@ -1,4 +1,14 @@
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
 import styles from '../components/ListData/ListData.module.css';
+
+const MySwal = withReactContent(Swal);
+
+interface FieldsToValidate {
+  selectType: string;
+  selectFilter: string;
+  searchInput: string;
+}
 
 export const Utils = Object.freeze({
   // Properties here :-P
@@ -41,6 +51,20 @@ export const Utils = Object.freeze({
     if (filter === 'race') { return 'e.g.: "Godly"'; }
     // Default return:
     return 'e.g.: "Minotaur"';
+  },
+
+  handleErrorWithSwal: (props: FieldsToValidate) => {
+    const { selectType, selectFilter, searchInput } = props;
+    const numberRegexp = new RegExp(/^\d+$/);
+    const errors = [];
+
+    if (!selectType) { errors.push({ message: 'Select a valid type!' }); }
+    if (!selectFilter) { errors.push({ message: 'Select a valid filter to limit by!' }); }
+    if (!searchInput) {
+      errors.push({ message: 'Search input field cannot be empty!' });
+    } else if ((selectFilter === 'lvl' || selectFilter === 'points') && !numberRegexp.test(searchInput)) {
+      errors.push(`Your search "${searchInput}" is not a valid ${selectFilter} value!`);
+    }
   },
 });
 
