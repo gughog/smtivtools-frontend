@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap');
 
 /* Default font */
-html {
+body {
   font-family: 'Fira Mono', monospace;
 }
