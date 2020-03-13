@@ -24,19 +24,6 @@ const filters: any = {
   speciafusions: [],
 };
 
-/**
- * Returns a static string for placeholder for a type passed as parameter.
- * @param type - Type of search
- */
-const handlePlaceholder = (type: string): string => {
-  if (type === 'skills') { return 'e.g.: "Megido"'; }
-  if (type === 'apps') { return 'e.g.: "Demolingual"'; }
-  // if (type === 'specialfusions') { return 'e.g.:'; }
-
-  // Default return:
-  return 'e.g.: "Minotaur"';
-};
-
 const SearchForm: React.FC<FormProps> = (props: FormProps) => {
   const {
     selectType,
@@ -81,7 +68,7 @@ const SearchForm: React.FC<FormProps> = (props: FormProps) => {
           type="text"
           value={searchInput}
           onChange={handleChange}
-          placeholder={handlePlaceholder(selectType)}
+          placeholder={Utils.handlePlaceholder(selectType, selectFilter)}
         />
       </label>
 

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { SearchForm, MemoListData } from '../../components';
+import { SearchForm, MemoListData, DefaultLoading } from '../../components';
 import { MainContainer, MainSectionForm, MainSectionResults } from './styled.components';
+import { LoaderContainer } from '../../components/ListData/styled.components';
 
 const Home: React.FC = () => {
   // Interfaces
@@ -10,7 +11,6 @@ const Home: React.FC = () => {
     searchInput: string;
     selectFilter: string;
     searchData: object[];
-    loading: boolean;
   }
 
   interface PropsData {
@@ -25,8 +25,9 @@ const Home: React.FC = () => {
     searchInput: '',
     selectFilter: '',
     searchData: [],
-    loading: false,
   });
+
+  const [loading, setLoading] = useState<boolean>(false);
 
   const onChangeHandler = (e: any): void => {
     const { value } = e.target;
@@ -43,15 +44,19 @@ const Home: React.FC = () => {
     const endpoint = `/${selectType}${selectFilter ? `?${selectFilter}=${searchInput}` : ''}`;
 
     // set loading on:
-    setData({ ...data, loading: true });
+    setLoading(true);
 
     api.get(endpoint)
       .then((response) => {
         // Append data and set loading off:
-        setData({ ...data, searchData: response.data.data, loading: false });
+        setData({ ...data, searchData: response.data.data });
         console.log(data);
+        setLoading(false);
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        setLoading(false);
+        alert(error); // temporary. change later to another error alert.
+      });
   };
 
   // JSX:
@@ -71,7 +76,17 @@ const Home: React.FC = () => {
       </MainSectionForm>
 
       <MainSectionResults>
-        <MemoListData loading={data.loading} results={data.searchData} />
+        {
+          loading
+            ? (
+              <LoaderContainer>
+                <DefaultLoading />
+              </LoaderContainer>
+            )
+            : (
+              <MemoListData results={data.searchData} />
+            )
+        }
       </MainSectionResults>
     </MainContainer>
   );
