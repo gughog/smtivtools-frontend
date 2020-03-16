@@ -106,6 +106,12 @@ export const Utils = Object.freeze({
       });
     }
   },
+  onKeyEnter: (e: any, methodOnEnter: any) => {
+    if (e && e.keyCode === 13) {
+      methodOnEnter();
+    }
+    return false;
+  },
 });
 
 export const Api = Object.freeze({

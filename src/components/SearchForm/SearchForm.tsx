@@ -74,6 +74,7 @@ const SearchForm: React.FC<FormProps> = (props: FormProps) => {
             value={searchInput}
             onChange={handleChange}
             placeholder={Utils.handlePlaceholder(selectType, selectFilter)}
+            onKeyUp={(e) => Utils.onKeyEnter(e, fetchMethod)}
           />
         </label>
 
