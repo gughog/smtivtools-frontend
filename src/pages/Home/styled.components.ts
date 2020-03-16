@@ -32,6 +32,7 @@ export const MainSectionResults = styled.section`
   flex: 1;
   min-width: 50%;
   display: block;
+  overflow: scroll;
   align-self: center;
   height: calc(100vh - 1.4rem);
   margin-right: 0.7rem;

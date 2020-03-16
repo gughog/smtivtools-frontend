@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import PerfectScrollbar from 'react-perfect-scrollbar';
 import { SearchForm, MemoListData, DefaultLoading } from '../../components';
 import {
   MainContainer,
@@ -105,19 +104,17 @@ const Home: React.FC = () => {
       </MainSectionForm>
 
       <MainSectionResults id="results">
-        <PerfectScrollbar>
-          {
-            loading
-              ? (
-                <LoaderContainer>
-                  <DefaultLoading />
-                </LoaderContainer>
-              )
-              : (
-                <MemoListData results={data.searchData} />
-              )
-          }
-        </PerfectScrollbar>
+        {
+          loading
+            ? (
+              <LoaderContainer>
+                <DefaultLoading />
+              </LoaderContainer>
+            )
+            : (
+              <MemoListData results={data.searchData} />
+            )
+        }
       </MainSectionResults>
 
       <FloatingButton onClick={(): void => Utils.scrollIntoElement('title')}>
