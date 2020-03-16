@@ -7,6 +7,7 @@ import {
   LabelText,
   TextInput,
   Select,
+  TextLink,
 } from '../shared';
 
 interface FormProps {
@@ -15,6 +16,7 @@ interface FormProps {
   searchInput: string;
   handleChange?: (e: any) => void;
   fetchMethod?: () => void;
+  resetHandler?: () => void;
 }
 
 const filters: any = {
@@ -31,6 +33,7 @@ const SearchForm: React.FC<FormProps> = (props: FormProps) => {
     searchInput,
     handleChange,
     fetchMethod,
+    resetHandler,
   } = props;
 
   return (
@@ -79,6 +82,10 @@ const SearchForm: React.FC<FormProps> = (props: FormProps) => {
       <SubmitButton type="button" onClick={fetchMethod}>
         :: Search ::
       </SubmitButton>
+
+      <TextLink onClick={resetHandler}>
+        Reset filters
+      </TextLink>
     </form>
   );
 };

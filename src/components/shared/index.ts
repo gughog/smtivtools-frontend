@@ -86,3 +86,17 @@ export const Separator = styled.div`
   color: #fff;
   margin: 1rem 0;
 `;
+
+export const TextLink = styled.a`
+  color: #1978d4;
+  display: block;
+  margin: 1.2rem 0;
+  text-align: center;
+  cursor: pointer;
+
+  transition: 0.3s;
+
+  &:hover {
+    color: #5ea1e1
+  }
+`;

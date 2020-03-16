@@ -59,6 +59,17 @@ const Home: React.FC = () => {
       });
   };
 
+  const resetHandler = (): void => {
+    setData({
+      selectType: 'demons',
+      searchInput: '',
+      selectFilter: '',
+      searchData: [],
+    });
+
+    console.info(':: Resetted! ');
+  };
+
   // JSX:
   return (
     <MainContainer>
@@ -71,6 +82,7 @@ const Home: React.FC = () => {
           selectFilter={data.selectFilter}
           searchInput={data.searchInput}
           handleChange={onChangeHandler}
+          resetHandler={resetHandler}
           fetchMethod={getData}
         />
       </MainSectionForm>
