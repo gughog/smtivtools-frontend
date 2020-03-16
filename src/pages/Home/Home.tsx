@@ -47,10 +47,17 @@ const Home: React.FC = () => {
     const { selectType, searchInput, selectFilter } = data;
     const api = axios.create({ baseURL: 'https://smtiv-tools-rest-api.herokuapp.com/api/v1' });
 
-    const endpoint = `/${selectType}${selectFilter ? `?${selectFilter}=${searchInput}` : ''}`;
+    const endpoint = `/${selectType}${selectFilter ? `?${selectFilter.toLowerCase()}=${searchInput}` : ''}`;
 
-    // set loading on (if on mobile, scrolls to list):
+    // If has errors in fields, stop execution
+    if (!Utils.handleErrorWithSwal({ selectType, selectFilter, searchInput })) {
+      return;
+    }
+
+    // set loading on:
     setLoading(true);
+
+    // if on mobile, auto-scrolls to list
     if (window.innerWidth <= 768) {
       Utils.scrollIntoElement('results');
     }
@@ -64,7 +71,7 @@ const Home: React.FC = () => {
       })
       .catch((error) => {
         setLoading(false);
-        alert(error); // temporary. change later to another error alert.
+        Utils.swalDefaultError(error, searchInput);
       });
   };
 
@@ -110,7 +117,7 @@ const Home: React.FC = () => {
         }
       </MainSectionResults>
 
-      <FloatingButton onClick={() => Utils.scrollIntoElement('title')}>
+      <FloatingButton onClick={(): void => Utils.scrollIntoElement('title')}>
         ▲
       </FloatingButton>
     </MainContainer>

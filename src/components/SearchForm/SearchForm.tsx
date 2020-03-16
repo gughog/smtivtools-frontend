@@ -51,7 +51,7 @@ const SearchForm: React.FC<FormProps> = (props: FormProps) => {
         </label>
 
         <label htmlFor="selectFilter">
-          <LabelText> Limiter by: </LabelText>
+          <LabelText> Filter by: </LabelText>
           <Select value={selectFilter} onChange={handleChange} name="selectFilter" id="selectFilter">
             <option disabled value=""> Choose one </option>
             {
@@ -70,7 +70,7 @@ const SearchForm: React.FC<FormProps> = (props: FormProps) => {
           <TextInput
             name="searchInput"
             id="searchInput"
-            type="text"
+            type={selectFilter === 'MP' || selectFilter === 'lvl' ? 'number' : 'text'}
             value={searchInput}
             onChange={handleChange}
             placeholder={Utils.handlePlaceholder(selectType, selectFilter)}

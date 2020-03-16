@@ -1,13 +1,17 @@
 import Swal from 'sweetalert2';
-import withReactContent from 'sweetalert2-react-content';
+import withReactContent, { SweetAlert2 } from 'sweetalert2-react-content';
 import styles from '../components/ListData/ListData.module.css';
 
-const MySwal = withReactContent(Swal);
+const MySwal: SweetAlert2 = withReactContent(Swal);
 
 interface FieldsToValidate {
   selectType: string;
   selectFilter: string;
   searchInput: string;
+}
+
+interface ErrorObject {
+  message: string;
 }
 
 export const Utils = Object.freeze({
@@ -63,12 +67,43 @@ export const Utils = Object.freeze({
     const numberRegexp = new RegExp(/^\d+$/);
     const errors = [];
 
-    if (!selectType) { errors.push({ message: 'Select a valid type!' }); }
-    if (!selectFilter) { errors.push({ message: 'Select a valid filter to limit by!' }); }
-    if (!searchInput) {
-      errors.push({ message: 'Search input field cannot be empty!' });
-    } else if ((selectFilter === 'lvl' || selectFilter === 'points') && !numberRegexp.test(searchInput)) {
-      errors.push(`Your search "${searchInput}" is not a valid ${selectFilter} value!`);
+    console.log(
+      'regexp: ', (selectFilter === 'lvl' || selectFilter === 'MP') && numberRegexp.test(searchInput) === false,
+      selectFilter, searchInput,
+    );
+
+    if (!selectType) { errors.push({ message: 'Search type cannot be empty!' }); }
+    if (!selectFilter && searchInput !== '') { errors.push({ message: 'Filter cannot be empty while searching with an input!' }); }
+    if (!searchInput && selectFilter !== '') {
+      errors.push({ message: 'Search input field cannot be empty while searching with filters!' });
+    }
+
+    const preparedUnorderedListOfErrors = `<ul> ${errors.map((error: ErrorObject) => `<li> ${error.message} </li>`)} </ul>`;
+
+    console.log(errors);
+
+    if (errors && errors.length > 0) {
+      MySwal.fire({
+        title: 'Some error(s) occured!',
+        icon: 'error',
+        html: `<p> Please, fix the error(s) bellow before continue your search: </p> ${preparedUnorderedListOfErrors}`,
+      });
+      return false;
+    }
+    return true;
+  },
+  swalDefaultError: (error: any, searchInput: string) => {
+    console.log(error.response.status);
+    if (error && error.response.status === 404) {
+      MySwal.fire({
+        title: 'Not found!',
+        text: `No data was found with your search input of "${searchInput}".`,
+      });
+    } else if (error && error.response.status === 500) {
+      MySwal.fire({
+        title: 'Internal server error!',
+        html: 'An internal server error occured. Please, report this clicking <strong><a style="color: cyan;" target="_blank" href="https://github.com/gughog/smtivtools-backend/issues">HERE</a></strong>.',
+      });
     }
   },
 });
