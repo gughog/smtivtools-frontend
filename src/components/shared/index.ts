@@ -100,3 +100,16 @@ export const TextLink = styled.a`
     color: #5ea1e1
   }
 `;
+
+export const TextFooter = styled.p`
+  padding-top: 2rem;
+  
+  a {
+    color: #1978d4;
+    text-decoration: none;
+    transition: 0.3s;
+    &:hover {
+      color: #5ea1e1
+    }
+  }
+`;
