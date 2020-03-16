@@ -31,7 +31,6 @@ export const MainSectionForm = styled.section`
 export const MainSectionResults = styled.section`
   flex: 1;
   min-width: 50%;
-  overflow-x: scroll;
   display: block;
   align-self: center;
   height: calc(100vh - 1.4rem);
