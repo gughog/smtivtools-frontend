@@ -1,7 +1,14 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { SearchForm, MemoListData } from '../../components';
-import { MainContainer, MainSectionForm, MainSectionResults } from './styled.components';
+import { SearchForm, MemoListData, DefaultLoading } from '../../components';
+import {
+  MainContainer,
+  MainSectionForm,
+  MainSectionResults,
+  FloatingButton,
+} from './styled.components';
+import { Utils } from '../../utils/utils';
+import { LoaderContainer } from '../../components/ListData/styled.components';
 
 const Home: React.FC = () => {
   // Interfaces
@@ -10,7 +17,6 @@ const Home: React.FC = () => {
     searchInput: string;
     selectFilter: string;
     searchData: object[];
-    loading: boolean;
   }
 
   interface PropsData {
@@ -25,8 +31,9 @@ const Home: React.FC = () => {
     searchInput: '',
     selectFilter: '',
     searchData: [],
-    loading: false,
   });
+
+  const [loading, setLoading] = useState<boolean>(false);
 
   const onChangeHandler = (e: any): void => {
     const { value } = e.target;
@@ -40,25 +47,50 @@ const Home: React.FC = () => {
     const { selectType, searchInput, selectFilter } = data;
     const api = axios.create({ baseURL: 'https://smtiv-tools-rest-api.herokuapp.com/api/v1' });
 
-    const endpoint = `/${selectType}${selectFilter ? `?${selectFilter}=${searchInput}` : ''}`;
+    const endpoint = `/${selectType}${selectFilter ? `?${selectFilter.toLowerCase()}=${searchInput}` : ''}`;
+
+    // If has errors in fields, stop execution
+    if (!Utils.handleErrorWithSwal({ selectType, selectFilter, searchInput })) {
+      return;
+    }
 
     // set loading on:
-    setData({ ...data, loading: true });
+    setLoading(true);
+
+    // if on mobile, auto-scrolls to list
+    if (window.innerWidth <= 768) {
+      Utils.scrollIntoElement('results');
+    }
 
     api.get(endpoint)
       .then((response) => {
         // Append data and set loading off:
-        setData({ ...data, searchData: response.data.data, loading: false });
+        setData({ ...data, searchData: response.data.data });
         console.log(data);
+        setLoading(false);
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        setLoading(false);
+        Utils.swalDefaultError(error, searchInput);
+      });
+  };
+
+  const resetHandler = (): void => {
+    setData({
+      selectType: 'demons',
+      searchInput: '',
+      selectFilter: '',
+      searchData: [],
+    });
+
+    console.info(':: Resetted! ');
   };
 
   // JSX:
   return (
     <MainContainer>
-      <MainSectionForm>
-        <h1> SMTIV Tools App </h1>
+      <MainSectionForm id="mainForm">
+        <h1 id="title"> SMTIV Tools App </h1>
         <p>Welcome to the SMTIV Tools App, where hunters gather!</p>
         <hr />
         <SearchForm
@@ -66,13 +98,28 @@ const Home: React.FC = () => {
           selectFilter={data.selectFilter}
           searchInput={data.searchInput}
           handleChange={onChangeHandler}
+          resetHandler={resetHandler}
           fetchMethod={getData}
         />
       </MainSectionForm>
 
-      <MainSectionResults>
-        <MemoListData loading={data.loading} results={data.searchData} />
+      <MainSectionResults id="results">
+        {
+          loading
+            ? (
+              <LoaderContainer>
+                <DefaultLoading />
+              </LoaderContainer>
+            )
+            : (
+              <MemoListData results={data.searchData} />
+            )
+        }
       </MainSectionResults>
+
+      <FloatingButton onClick={(): void => Utils.scrollIntoElement('title')}>
+        ▲
+      </FloatingButton>
     </MainContainer>
   );
 };

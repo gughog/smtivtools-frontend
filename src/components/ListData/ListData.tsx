@@ -1,14 +1,12 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
-import { LoaderContainer, IconContainer, Table } from './styled.components';
+import { IconContainer, Table } from './styled.components';
 import icon from '../../assets/devil.png';
 import { Utils } from '../../utils/utils';
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
-import { DefaultLoading } from '../index';
 
 interface DataProps {
   results: object[];
-  loading: boolean;
 }
 
 interface PropsData {
@@ -18,24 +16,15 @@ interface PropsData {
 }
 
 const ListData: React.FC<DataProps> = (props: DataProps) => {
-  const { results, loading } = props;
+  const { results } = props;
 
   // JSX fragment for "no data"
-  const noDataMessage = (): JSX.Element => {
-    if (loading) {
-      return (
-        <LoaderContainer>
-          <DefaultLoading />
-        </LoaderContainer>
-      );
-    }
-    return (
-      <IconContainer>
-        <h2>No data</h2>
-        <img width="200" height="200" src={icon} alt="Devil icon" />
-      </IconContainer>
-    );
-  };
+  const noDataMessage = (): JSX.Element => (
+    <IconContainer>
+      <h2>No data</h2>
+      <img width="200" height="200" src={icon} alt="Devil icon" />
+    </IconContainer>
+  );
 
   // JSX fragment for list rendering
   const tableRender = (): JSX.Element => {
@@ -64,7 +53,7 @@ const ListData: React.FC<DataProps> = (props: DataProps) => {
         <tbody>
           {
             queryData.map((row: any) => (
-              <tr key={row.id}>
+              <tr key={row.name}>
                 {
                   Object.values(row).map((tabledata: any) => (
                     <td className={Utils.classColorHandler(tabledata)} key={Math.random()}>
