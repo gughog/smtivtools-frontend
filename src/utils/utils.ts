@@ -19,6 +19,11 @@ export const Utils = Object.freeze({
 
     return result;
   },
+  scrollIntoElement: (elementID: string) => {
+    const el: any = document.getElementById(elementID);
+
+    el.scrollIntoView({ behavior: 'smooth' });
+  },
   classColorHandler: (tableDataName: string): string => {
     // Weak, Null, Repel, Drain, Resist, N/A
     if (tableDataName === 'Weak') { return styles.weak; }

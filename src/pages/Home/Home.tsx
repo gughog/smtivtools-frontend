@@ -1,7 +1,13 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { SearchForm, MemoListData, DefaultLoading } from '../../components';
-import { MainContainer, MainSectionForm, MainSectionResults } from './styled.components';
+import {
+  MainContainer,
+  MainSectionForm,
+  MainSectionResults,
+  FloatingButton,
+} from './styled.components';
+import { Utils } from '../../utils/utils';
 import { LoaderContainer } from '../../components/ListData/styled.components';
 
 const Home: React.FC = () => {
@@ -43,8 +49,11 @@ const Home: React.FC = () => {
 
     const endpoint = `/${selectType}${selectFilter ? `?${selectFilter}=${searchInput}` : ''}`;
 
-    // set loading on:
+    // set loading on (if on mobile, scrolls to list):
     setLoading(true);
+    if (window.innerWidth <= 768) {
+      Utils.scrollIntoElement('results');
+    }
 
     api.get(endpoint)
       .then((response) => {
@@ -73,8 +82,8 @@ const Home: React.FC = () => {
   // JSX:
   return (
     <MainContainer>
-      <MainSectionForm>
-        <h1> SMTIV Tools App </h1>
+      <MainSectionForm id="mainForm">
+        <h1 id="title"> SMTIV Tools App </h1>
         <p>Welcome to the SMTIV Tools App, where hunters gather!</p>
         <hr />
         <SearchForm
@@ -87,7 +96,7 @@ const Home: React.FC = () => {
         />
       </MainSectionForm>
 
-      <MainSectionResults>
+      <MainSectionResults id="results">
         {
           loading
             ? (
@@ -100,6 +109,10 @@ const Home: React.FC = () => {
             )
         }
       </MainSectionResults>
+
+      <FloatingButton onClick={() => Utils.scrollIntoElement('title')}>
+        ▲
+      </FloatingButton>
     </MainContainer>
   );
 };

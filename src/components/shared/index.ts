@@ -85,6 +85,10 @@ export const Separator = styled.div`
   text-align: center;
   color: #fff;
   margin: 1rem 0;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 
 export const TextLink = styled.a`
@@ -109,7 +113,7 @@ export const TextFooter = styled.p`
     text-decoration: none;
     transition: 0.3s;
     &:hover {
-      color: #5ea1e1
+      color: #5ea1e1;
     }
   }
 `;
