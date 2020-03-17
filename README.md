@@ -4,7 +4,7 @@ This is the frontend part of this project, that was made with the **PERN** Stack
 
 ## About this
 
->> TL:DR - This is an app for searching things related to Shin Megami Tensei IV, as information of skills, apps and creatures from the game.
+> TL:DR - This is an app for searching things related to Shin Megami Tensei IV, as information of skills, apps and creatures from the game.
 
 As a developer, I always seek knowledge to develop my skills and this project consists in 3 parts that have made me gain a lot of knowledge and gaves me passion for working with something that i love that is videogames. See bellow:
 
