@@ -1,5 +1,7 @@
 # SMTIV Tools App - Frontend
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/361c8415-9820-4eb6-b566-f277a9000ca0/deploy-status)](https://app.netlify.com/sites/smtivtools/deploys)
+
 This is the frontend part of this project, that was made with the **PERN** Stack (Postgres, Express, React.js and Node.js).
 
 ## About this
