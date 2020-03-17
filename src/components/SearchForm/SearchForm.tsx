@@ -70,7 +70,7 @@ const SearchForm: React.FC<FormProps> = (props: FormProps) => {
           <TextInput
             name="searchInput"
             id="searchInput"
-            type={selectFilter === 'MP' || selectFilter === 'lvl' ? 'number' : 'text'}
+            type={selectFilter === 'MP' || selectFilter === 'lvl' || selectFilter === 'points' ? 'number' : 'text'}
             value={searchInput}
             onChange={handleChange}
             placeholder={Utils.handlePlaceholder(selectType, selectFilter)}
