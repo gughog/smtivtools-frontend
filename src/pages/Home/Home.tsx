@@ -35,12 +35,10 @@ const Home: React.FC = () => {
 
   const [loading, setLoading] = useState<boolean>(false);
 
-  const onChangeHandler = (e: any): void => {
-    const { value } = e.target;
-    const { name } = e.target;
+  const onChangeHandler = ({ target }: any): void => {
+    const { value, name } =  target
 
     setData({ ...data, [name]: value });
-    console.log(value);
   };
 
   const getData = async (): Promise<void> => {
@@ -82,8 +80,6 @@ const Home: React.FC = () => {
       selectFilter: '',
       searchData: [],
     });
-
-    console.info(':: Resetted! ');
   };
 
   // JSX:
